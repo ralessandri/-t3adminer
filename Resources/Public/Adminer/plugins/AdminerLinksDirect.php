@@ -9,7 +9,11 @@
  */
 class AdminerLinksDirect
 {
-
+    /**
+     * @param  string  $val
+     * @param  string  $field
+     * @return mixed
+     */
     public function selectLink($val, $field)
     {
         if (is_url($val)) {

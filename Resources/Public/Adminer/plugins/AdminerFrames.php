@@ -13,9 +13,9 @@ class AdminerFrames
     var $sameOrigin;
 
     /**
-     * @param bool allow running from the same origin only
+     * @param  bool allow running from the same origin only
      */
-    function __construct($sameOrigin = false)
+    function __construct(bool $sameOrigin = false)
     {
         $this->sameOrigin = $sameOrigin;
     }

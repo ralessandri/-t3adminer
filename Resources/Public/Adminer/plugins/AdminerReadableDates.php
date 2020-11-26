@@ -15,7 +15,6 @@ class AdminerReadableDates
 
     function __construct()
     {
-        $this->prepend = '<script' . nonce() . '>';
         $this->prepend .= <<<EOT
 document.addEventListener('DOMContentLoaded', function(event) {
 	var date = new Date();
@@ -25,11 +24,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		if (text !== '0') {
 			date.setTime(parseInt(text) * 1000);
 			tds[i].oldDate = text;
-
-			// tds[i].newDate = date.toUTCString().substr(5); // UTC format
-			tds[i].newDate = date.toLocaleString();	// Local format
-			// tds[i].newDate = date.toLocaleFormat('%e %b %Y %H:%M:%S'); // Custom format - works in Firefox only
-
+			tds[i].newDate = date.toISOString().substr(0, 19).replace("T", " ");
 			tds[i].newDate = '<span style="color: #009900">' + tds[i].newDate + '</span>';
 			tds[i].innerHTML = tds[i].newDate;
 			tds[i].dateIsNew = true;
@@ -41,13 +36,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		}
 	}
 });
-</script>
 EOT;
     }
 
     public function head()
     {
-        echo $this->prepend;
+        echo script($this->prepend);
     }
 
     public function selectVal($val, $link, $field, $original)
