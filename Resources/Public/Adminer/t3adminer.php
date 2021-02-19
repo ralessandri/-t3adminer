@@ -24,9 +24,8 @@
 
 function adminer_object()
 {
-
     // required to run any plugin
-    include_once './plugins/plugin.php';
+    include_once './plugins/AdminerPlugin.php';
 
     // autoloader
     foreach (glob('plugins/*.php') as $filename) {
@@ -35,12 +34,12 @@ function adminer_object()
 
     $plugins = [
         // specify enabled plugins here
-        new AdminerFrames,
-        new AdminerVersionNoverify,
+        new AdminerFrames(),
+        new AdminerVersionNoverify(),
         new AdminerDumpSaveServer($_SESSION['exportDirectory']),
-        new AdminerLinksDirect,
+        new AdminerLinksDirect(),
         new AdminerReadableDates(),
-        new AdminerRestoreMenuScroll()
+        new AdminerRestoreMenuScroll(),
     ];
 
     class AdminerSoftware extends AdminerPlugin
@@ -59,7 +58,7 @@ function adminer_object()
         /**
          * Key used for permanent login
          *
-         * @param boolean $create
+         * @param  boolean  $create
          * @return string
          */
         public function permanentLogin($create = false)
@@ -77,7 +76,7 @@ function adminer_object()
             return [
                 $_SESSION['ADM_server'],
                 $_SESSION['ADM_user'],
-                $_SESSION['ADM_password']
+                $_SESSION['ADM_password'],
             ];
         }
 
@@ -101,7 +100,7 @@ function adminer_object()
         /**
          * Prints table list in menu
          *
-         * @param array $tables
+         * @param  array  $tables
          * @return null
          */
         public function tablesPrint($tables)
@@ -116,8 +115,8 @@ function adminer_object()
                 echo '<a href="' . h(ME) . 'select=' . urlencode($table) . '"' . bold($_GET['select'] == $table) . ">" .
                     lang('select') . "</a> ";
                 echo '<a href="' . h(ME) . 'table=' . urlencode($table) . '"' . bold($_GET['table'] == $table) . ">" .
-                    $this->tableName(array('Name' => $table)) . "</a></span>\n";
-                    //! Adminer::tableName may work with full table status
+                    $this->tableName(['Name' => $table]) . "</a></span>\n";
+                //! Adminer::tableName may work with full table status
             }
             echo '</p>';
         }
