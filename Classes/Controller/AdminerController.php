@@ -89,6 +89,7 @@ class AdminerController
 
         // If t3adminer is configured in the conf.php script, we continue to load it...
         if ($this->moduleConfiguration['ADM_absolute_path'] && @is_dir($this->moduleConfiguration['ADM_absolute_path'])) {
+            session_cache_limiter('');
             // Need to have cookie visible from parent directory
             session_set_cookie_params(0, '/', '', 0);
 

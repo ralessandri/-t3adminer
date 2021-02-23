@@ -143,6 +143,7 @@ function adminer_object()
     return new AdminerSoftware($plugins);
 }
 
+session_cache_limiter('');
 $session_name = 'tx_t3adminer';
 session_name($session_name);
 session_start();
