@@ -30,5 +30,10 @@
     "psr-4": {
       "jigal\\t3adminer\\": "Classes/"
     }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "t3adminer"
+    }
   }
 }
